@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>mock_dojosecret_popular</title>
+</head>
+	<body>
+		<h1>Most Popular Secrets...</h1>
+        <a id="back" href="/secrets">Back</a>
+
+        {% for secret in secrets %}
+            <p>{{ secret.content }} ({{ secret.created_at }}) {{ secret.secret_likes.all.count }} likes 
+            {% if secret.user.id == user_id%} 
+                You posted this 
+                <a href="/delete/{{ secret.id }}">Delete</a>
+            {% else %} 
+                {% if secret.id in likes.secret_id %} 
+                    You liked this.
+                {% else %} 
+                    <a href="/likes_process/{{ user_id }}/{{ secret.id }}">Like</a> 
+                {% endif %} 
+            {% endif %}</p>
+        {% endfor %}
+	</body>
+</html>
